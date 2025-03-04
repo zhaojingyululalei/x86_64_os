@@ -3,12 +3,7 @@
 
 #include "mem_addr_cfg.h"
 #include "blk_cfg.h"
-#define MEM_PAGE_SIZE 4096
-#define MEM_TOTAL_SIZE  (128*1024*1024)
-#define USR_STACK_TOP   0xFFFFF000
-#define USR_ENTRY_BASE  0x80000000
-#define USR_HEAP_BASE   0x90000000
-#define HEAP_FREE_LIST_NR   (12+1)  //2^0~2^12   4096 = 2^12
+
 //GDT描述符格式
 #define GDT_DESC_LIMIT_0_15_POS    0
 #define GDT_DESC_BASE_0_15_POS     16
@@ -32,13 +27,13 @@
 #define DESC_KERNEL_CODE_BASE_ADDR        0x0
 #define DESC_KERNEL_CODE_SEG_LIMIT       DESC_GDT_DESC_MAX_SEG_LIMIT
 
-#define DESC_KERNEL_DATA_BASE_ADDR       DESC_KERNEL_CODE_BASE_ADDR
+#define DESC_KERNEL_DATA_BASE_ADDR       0x0
 #define DESC_KERNEL_DATA_SEG_LIMIT       DESC_GDT_DESC_MAX_SEG_LIMIT  
 
 #define DESC_USR_CODE_BASE_ADDR         0x0
 #define DESC_USR_CODE_SEG_LIMIT         DESC_GDT_DESC_MAX_SEG_LIMIT
 
-#define DESC_USR_DATA_BASE_ADDR       DESC_USR_CODE_BASE_ADDR
+#define DESC_USR_DATA_BASE_ADDR       0x0
 #define DESC_USR_DATA_SEG_LIMIT       DESC_GDT_DESC_MAX_SEG_LIMIT  
 
 
@@ -53,15 +48,14 @@
 #define RPL_0   0
 #define RPL_3   3
 
-#define SELECTOR_BOOTLOADER_CODE_SEG    (1<<3|RPL_0)
-#define SELECTOR_BOOTLOADER_DATA_SEG    (2<<3|RPL_0)
-#define SELECTOR_KERNEL_CODE_SEG        (3<<3|RPL_0)
-#define SELECTOR_KERNEL_DATA_SEG        (4<<3|RPL_0)
-#define SELECTOR_USR_CODE_SEG           (5<<3|RPL_3)   
-#define SELECTOR_USR_DATA_SEG           (6<<3|RPL_3)
-#define SELECTOR_CALL_GATE              (7<<3|RPL_3)
 
-#define CALL_GATE_PRAM_COUNT    7
+#define SELECTOR_KERNEL_CODE_SEG        (1<<3|RPL_0)
+#define SELECTOR_KERNEL_DATA_SEG        (2<<3|RPL_0)
+#define SELECTOR_USR_CODE_SEG           (3<<3|RPL_3)   
+#define SELECTOR_USR_DATA_SEG           (4<<3|RPL_3)
+#define SELECTOR_CALL_GATE              (5<<3|RPL_3)
+
+
 
 
 

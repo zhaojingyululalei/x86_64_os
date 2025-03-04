@@ -17,6 +17,8 @@ _start:
 
 	mov $STACK_KERNEL_TOP_ADDR,%sp
 
+
+
 	
 
 # 设置屏幕模式为文本模式，清除屏幕
@@ -55,7 +57,7 @@ print_done:
 
 read_loader:
 	mov $LOAD_START_ADDR_REL, %bx	# 读取到的内存地址
-	mov $0x2, %cx		# ch:磁道号，cl起始扇区号
+	mov $0x2, %cx		# ch:磁道号，cl起始扇区号 #这是从1开始算的，没有0号扇区
 	mov $0x2, %ah		# ah: 0x2读磁盘命令
 	mov $64, %al		# al: 读取的扇区数量, 必须小于128，暂设置成32KB
 	mov $0x0080, %dx	# dh: 磁头号，dl驱动器号0x80(磁盘1)

@@ -67,9 +67,9 @@
             "label": "调试准备",
             "dependsOrder": "sequence",
             "dependsOn": [
-                //"启动qemu",
                 "执行make",
                 "写映像文件",
+                //"启动qemu",
                 //"启动bochs",
             ],
         }

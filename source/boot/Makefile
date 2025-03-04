@@ -50,7 +50,7 @@ DEPS := $(DEPS:.S=.d)  # 将 .S 替换为 .d
 # 创建构建目录的命令
 MD := mkdir -p
 
-# 默认目标
+# 默认目标  注：objcopy -O binary 去掉了elf头，只保留数据段和代码段，由于直接加载，**汇编的时候，数据段要写到代码段后面**。
 all: $(BUILDS) $(IMAGE_DIR) $(OUT)
 	@echo "Executing 'all' complete!"
 	$(OBJCOPY_TOOL) -O binary $(OUT) $(IMAGE_DIR)/${PROJECT}.bin
@@ -102,10 +102,3 @@ clean:
 	-rm -f $(IMAGE_DIR)/$(PROJECT).*
 	@echo "Clean complete."
 
-# x86_64-linux-gnu-gcc -g -m64 -I../os_config -MMD -c boot.S -o ../../build/boot/boot.o
-# x86_64-linux-gnu-ld -b elf64-x86-64 -Ttext=0x7c00  ../../build/boot/boot.o -o boot.elf
-# Executing 'all' complete!
-# x86_64-linux-gnu-objcopy -O binary boot.elf ../../image/boot.bin
-# x86_64-linux-gnu-objdump -x -d -S -m i8086 boot.elf > ../../build/boot/boot_dis.txt
-# x86_64-linux-gnu-readelf -a boot.elf > ../../build/boot/boot_elf.txt
-# mv boot.elf ../../image
